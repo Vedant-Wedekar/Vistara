@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vistara Learn - Professional Learning & Career Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .logo-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bg-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+        }
+        
+        .bg-slide.active {
+            opacity: 0.05;
+        }
+        
+        .content-overlay {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.98);
+            min-height: 100vh;
+            backdrop-filter: blur(10px);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .professional-shadow {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #1e40af, #7c3aed);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.3);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+        
+        .admin-panel {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1e40af;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        
+        .notification.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Background Image Slider -->
+    <div class="bg-slider" id="bgSlider">
+        <!-- Default backgrounds - will be populated by admin uploads -->
+        <div class="bg-slide active" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+    </div>
+
+    <!-- Content Overlay -->
+    <div class="content-overlay">
+        <!-- Professional Navigation -->
+        <nav class="glass-effect shadow-xl sticky top-0 z-50 border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex items-center space-x-4">
+                        <div class="logo-gradient rounded-xl p-3 professional-shadow">
+                            <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Vistara Learn</h1>
+                            <p class="text-sm text-gray-600 font-medium">Professional Learning & Career Platform</p>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <button onclick="showSection('home')" class="nav-link text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </button>
+                        <button onclick="showSection('jobs')" class="nav-link text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-briefcase mr-2"></i>Careers
+                        </button>
+                        <button onclick="showSection('visa')" class="nav-link text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-passport mr-2"></i>Visa Services
+                        </button>
+                        <button onclick="showSection('exams')" class="nav-link text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-book-open mr-2"></i>Courses
+                        </button>
+                        <button onclick="showSection('mock')" class="nav-link text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-clipboard-check mr-2"></i>Practice Tests
+                        </button>
+                        <button onclick="showSection('admin')" class="nav-link text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-cog mr-2"></i>Admin
+                        </button>
+                        <button id="authBtn" onclick="showSection('login')" class="btn-primary text-white px-6 py-3 rounded-lg font-medium professional-shadow">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+                        </button>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600 p-2">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Mobile Menu -->
+                <div id="mobileMenu" class="lg:hidden hidden border-t border-gray-200 py-4">
+                    <div class="flex flex-col space-y-3">
+                        <button onclick="showSection('home')" class="text-left text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </button>
+                        <button onclick="showSection('jobs')" class="text-left text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-briefcase mr-2"></i>Careers
+                        </button>
+                        <button onclick="showSection('visa')" class="text-left text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-passport mr-2"></i>Visa Services
+                        </button>
+                        <button onclick="showSection('exams')" class="text-left text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-book-open mr-2"></i>Courses
+                        </button>
+                        <button onclick="showSection('mock')" class="text-left text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-clipboard-check mr-2"></i>Practice Tests
+                        </button>
+                        <button onclick="showSection('admin')" class="text-left text-gray-700 hover:text-blue-600 font-medium px-3 py-2">
+                            <i class="fas fa-cog mr-2"></i>Admin
+                        </button>
+                        <button id="authBtnMobile" onclick="showSection('login')" class="btn-primary text-white px-6 py-3 rounded-lg font-medium mt-4">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Welcome Message (No login required) -->
+
+        <!-- Home Section -->
+        <div id="home" class="section">
+            <!-- Professional Hero Section -->
+            <div class="hero-gradient text-white py-24 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-purple-900/20"></div>
+                <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+                    <div class="flex justify-center mb-8">
+                        <div class="glass-effect rounded-2xl p-6 professional-shadow">
+                            <i class="fas fa-rocket text-6xl text-blue-400"></i>
+                        </div>
+                    </div>
+                    <h1 class="text-6xl font-bold mb-6 fade-in leading-tight">
+                        Transform Your <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Career Journey</span>
+                    </h1>
+                    <p class="text-xl mb-10 max-w-4xl mx-auto fade-in text-gray-200 leading-relaxed">
+                        Professional learning platform offering comprehensive exam preparation, visa consultation, career opportunities, and skill development programs. Trusted by over 10,000+ professionals worldwide.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-6 fade-in">
+                        <button onclick="showSection('jobs')" class="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 professional-shadow flex items-center justify-center">
+                            <i class="fas fa-briefcase mr-3"></i>Explore Career Opportunities
+                        </button>
+                        <button onclick="showSection('exams')" class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-play mr-3"></i>Start Learning Today
+                        </button>
+                    </div>
+                    
+                    <!-- Stats Section -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 max-w-4xl mx-auto">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-400 mb-2">10,000+</div>
+                            <div class="text-gray-300 text-sm">Students Enrolled</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400 mb-2">95%</div>
+                            <div class="text-gray-300 text-sm">Success Rate</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-400 mb-2">50+</div>
+                            <div class="text-gray-300 text-sm">Countries Served</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-400 mb-2">24/7</div>
+                            <div class="text-gray-300 text-sm">Expert Support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Services Grid -->
+            <div class="max-w-7xl mx-auto px-4 py-20">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Professional Services</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive solutions designed to accelerate your career growth and academic success</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-hover glass-effect p-8 rounded-2xl professional-shadow text-center group">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-briefcase text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Career Portal</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Connect with top employers worldwide through our professional job matching platform with AI-powered recommendations</p>
+                        <button onclick="showSection('jobs')" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+                            Explore Opportunities <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="card-hover glass-effect p-8 rounded-2xl professional-shadow text-center group">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-passport text-3xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Visa Consultation</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Expert visa guidance and documentation support for students and professionals seeking global opportunities</p>
+                        <button onclick="showSection('visa')" class="text-green-600 font-semibold hover:text-green-700 transition-colors">
+                            Get Consultation <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="card-hover glass-effect p-8 rounded-2xl professional-shadow text-center group">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-graduation-cap text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Exam Mastery</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Comprehensive preparation courses for IELTS, TOEFL, GRE with expert instructors and proven methodologies</p>
+                        <button onclick="showSection('exams')" class="text-purple-600 font-semibold hover:text-purple-700 transition-colors">
+                            Start Learning <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="card-hover glass-effect p-8 rounded-2xl professional-shadow text-center group">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-chart-line text-3xl text-orange-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Practice Tests</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Realistic exam simulations with detailed analytics and personalized improvement recommendations</p>
+                        <button onclick="showSection('mock')" class="text-orange-600 font-semibold hover:text-orange-700 transition-colors">
+                            Take Practice Test <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Team Section -->
+            <div class="glass-effect py-20">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Leadership Team</h2>
+                        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Meet the visionary professionals behind Vistara Learn's success</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+                                    <span class="text-white font-bold text-xl">SV</span>
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Sarvesh Vankar</h4>
+                            <p class="text-sm text-blue-600 font-medium mb-2">Co-Founder & CEO</p>
+                            <p class="text-xs text-gray-500">Strategic Leadership</p>
+                        </div>
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+                                    <span class="text-white font-bold text-xl">AC</span>
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Ayush Choudhari</h4>
+                            <p class="text-sm text-green-600 font-medium mb-2">Co-Founder & CTO</p>
+                            <p class="text-xs text-gray-500">Technology Innovation</p>
+                        </div>
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+                                    <span class="text-white font-bold text-xl">KS</span>
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Khushi Singh</h4>
+                            <p class="text-sm text-pink-600 font-medium mb-2">Head of Operations</p>
+                            <p class="text-xs text-gray-500">Process Excellence</p>
+                        </div>
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+                                    <span class="text-white font-bold text-xl">SD</span>
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Shivani Dakhale</h4>
+                            <p class="text-sm text-purple-600 font-medium mb-2">Academic Director</p>
+                            <p class="text-xs text-gray-500">Curriculum Design</p>
+                        </div>
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+                                    <span class="text-white font-bold text-xl">SS</span>
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Shravani Shahakar</h4>
+                            <p class="text-sm text-indigo-600 font-medium mb-2">Student Success Manager</p>
+                            <p class="text-xs text-gray-500">Student Experience</p>
+                        </div>
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-teal-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+                                    <span class="text-white font-bold text-xl">SW</span>
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Sneha Walmik</h4>
+                            <p class="text-sm text-teal-600 font-medium mb-2">Marketing Director</p>
+                            <p class="text-xs text-gray-500">Brand Strategy</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Information -->
+                    <div class="text-center mt-16">
+                        <div class="glass-effect rounded-2xl p-8 max-w-2xl mx-auto professional-shadow">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Get In Touch</h3>
+                            <p class="text-gray-600 mb-6">Ready to transform your career? Our expert team is here to guide you every step of the way.</p>
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                                <div class="flex items-center">
+                                    <i class="fas fa-phone text-blue-600 mr-3"></i>
+                                    <span class="font-semibold text-gray-900">+91 8122060821</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-green-600 mr-3"></i>
+                                    <span class="font-semibold text-gray-900">info@vistaralearn.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jobs Section -->
+        <div id="jobs" class="section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Job Opportunities</h2>
+                    <button onclick="showJobForm()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Post a Job</button>
+                </div>
+                
+                <!-- Job Filters -->
+                <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-md mb-8">
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <input type="text" placeholder="Job title or keywords" class="border rounded-lg px-4 py-2">
+                        <select class="border rounded-lg px-4 py-2">
+                            <option>All Locations</option>
+                            <option>Remote</option>
+                            <option>Mumbai</option>
+                            <option>Delhi</option>
+                            <option>Bangalore</option>
+                        </select>
+                        <select class="border rounded-lg px-4 py-2">
+                            <option>All Industries</option>
+                            <option>Technology</option>
+                            <option>Healthcare</option>
+                            <option>Finance</option>
+                            <option>Education</option>
+                        </select>
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Search Jobs</button>
+                    </div>
+                </div>
+
+                <!-- Job Listings -->
+                <div id="jobListings" class="space-y-6">
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-md card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800">Senior Software Engineer</h3>
+                                <p class="text-gray-600">TechCorp Solutions • Mumbai • Full-time</p>
+                                <p class="text-sm text-gray-500 mt-1">Posted 2 days ago</p>
+                            </div>
+                            <button onclick="applyForJob('Senior Software Engineer')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Apply Now</button>
+                        </div>
+                        <p class="text-gray-700 mb-4">We're looking for an experienced software engineer to join our growing team. You'll work on cutting-edge projects using modern technologies.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Node.js</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-md card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800">Marketing Manager</h3>
+                                <p class="text-gray-600">Global Marketing Inc • Remote • Full-time</p>
+                                <p class="text-sm text-gray-500 mt-1">Posted 1 week ago</p>
+                            </div>
+                            <button onclick="applyForJob('Marketing Manager')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Apply Now</button>
+                        </div>
+                        <p class="text-gray-700 mb-4">Lead our marketing initiatives and drive brand awareness across multiple channels. Perfect for creative professionals with strategic thinking.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Digital Marketing</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">SEO</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visa Services Section -->
+        <div id="visa" class="section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Professional Visa Services</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-600">Student Visa Services</h3>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> University Application Assistance</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Document Preparation</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Visa Interview Coaching</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Scholarship Guidance</li>
+                        </ul>
+                        <button onclick="showVisaForm('student')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full">Apply for Student Visa</button>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-green-600">Work Visa Services</h3>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Job Placement Assistance</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Work Permit Processing</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Employer Sponsorship</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Legal Documentation</li>
+                        </ul>
+                        <button onclick="showVisaForm('work')" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 w-full">Apply for Work Visa</button>
+                    </div>
+                </div>
+
+                <!-- Countries We Serve -->
+                <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6 text-center">Countries We Serve</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="p-4 border rounded-lg">
+                            <div class="text-2xl mb-2">🇺🇸</div>
+                            <p class="font-semibold">United States</p>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <div class="text-2xl mb-2">🇨🇦</div>
+                            <p class="font-semibold">Canada</p>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <div class="text-2xl mb-2">🇬🇧</div>
+                            <p class="font-semibold">United Kingdom</p>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <div class="text-2xl mb-2">🇦🇺</div>
+                            <p class="font-semibold">Australia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Preparation Section -->
+        <div id="exams" class="section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Exam Preparation Courses</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+                        <div class="bg-blue-100 p-4 rounded-lg mb-4">
+                            <h3 class="text-xl font-semibold text-blue-800">IELTS Preparation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Comprehensive IELTS preparation with expert instructors and practice materials.</p>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500">Duration: 8 weeks</p>
+                            <p class="text-sm text-gray-500">Videos: 45 lessons</p>
+                        </div>
+                        <button onclick="openVideoPortal('IELTS')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 w-full">Start Course</button>
+                    </div>
+
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+                        <div class="bg-green-100 p-4 rounded-lg mb-4">
+                            <h3 class="text-xl font-semibold text-green-800">TOEFL Preparation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Master TOEFL with our structured course and practice tests.</p>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500">Duration: 10 weeks</p>
+                            <p class="text-sm text-gray-500">Videos: 60 lessons</p>
+                        </div>
+                        <button onclick="openVideoPortal('TOEFL')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full">Start Course</button>
+                    </div>
+
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+                        <div class="bg-purple-100 p-4 rounded-lg mb-4">
+                            <h3 class="text-xl font-semibold text-purple-800">GRE Preparation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Achieve your target GRE score with our comprehensive preparation program.</p>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500">Duration: 12 weeks</p>
+                            <p class="text-sm text-gray-500">Videos: 75 lessons</p>
+                        </div>
+                        <button onclick="openVideoPortal('GRE')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 w-full">Start Course</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Portal (Separate Domain Simulation) -->
+        <div id="videoPortal" class="section hidden">
+            <div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen">
+                <!-- Video Portal Header -->
+                <div class="bg-black bg-opacity-50 p-4">
+                    <div class="max-w-7xl mx-auto flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg p-2">
+                                <svg width="32" height="32" viewBox="0 0 32 32" class="text-white">
+                                    <path fill="currentColor" d="M16 2L28 8v16L16 30L4 24V8L16 2z"/>
+                                    <circle cx="16" cy="16" r="6" fill="white" opacity="0.9"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h1 class="text-xl font-bold text-white">Vistara Learn Academy</h1>
+                                <p class="text-xs text-gray-300">Video Learning Portal</p>
+                            </div>
+                        </div>
+                        <button onclick="showSection('exams')" class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-lg hover:bg-opacity-30">← Back to Courses</button>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 py-8">
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Video Player -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-black rounded-lg overflow-hidden shadow-2xl">
+                                <div id="videoPlayer" class="aspect-video bg-gray-900 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <svg class="w-20 h-20 mx-auto mb-4 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+                                        </svg>
+                                        <p class="text-lg">Select a video to start learning</p>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h3 id="currentVideoTitle" class="text-xl font-semibold text-white mb-2">Welcome to Your Course</h3>
+                                    <p id="currentVideoDesc" class="text-gray-300">Choose a lesson from the playlist to begin your learning journey.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Playlist -->
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-white mb-4" id="courseTitle">Course Videos</h3>
+                            <div id="videoPlaylist" class="space-y-3">
+                                <!-- Videos will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mock Tests Section -->
+        <div id="mock" class="section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Mock Tests</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+                        <h3 class="text-xl font-semibold mb-4">IELTS Mock Test</h3>
+                        <p class="text-gray-600 mb-4">Full-length IELTS simulation with instant scoring</p>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500">Duration: 2 hours 45 minutes</p>
+                            <p class="text-sm text-gray-500">Questions: 40 per section</p>
+                        </div>
+                        <button onclick="startMockTest('IELTS')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 w-full">Start Test</button>
+                    </div>
+
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+                        <h3 class="text-xl font-semibold mb-4">TOEFL Mock Test</h3>
+                        <p class="text-gray-600 mb-4">Complete TOEFL practice test with detailed feedback</p>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500">Duration: 3 hours</p>
+                            <p class="text-sm text-gray-500">Sections: 4 (Reading, Listening, Speaking, Writing)</p>
+                        </div>
+                        <button onclick="startMockTest('TOEFL')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full">Start Test</button>
+                    </div>
+
+                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+                        <h3 class="text-xl font-semibold mb-4">GRE Mock Test</h3>
+                        <p class="text-gray-600 mb-4">Adaptive GRE practice test with performance analytics</p>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500">Duration: 3 hours 45 minutes</p>
+                            <p class="text-sm text-gray-500">Sections: Verbal, Quantitative, Analytical Writing</p>
+                        </div>
+                        <button onclick="startMockTest('GRE')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 w-full">Start Test</button>
+                    </div>
+                </div>
+
+                <!-- Test Results -->
+                <div id="testResults" class="mt-12 bg-white bg-opacity-90 p-8 rounded-lg shadow-lg hidden">
+                    <h3 class="text-2xl font-semibold mb-6">Your Test Results</h3>
+                    <div id="resultsContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="admin" class="section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div id="adminPanel">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">Admin Dashboard</h2>
+                    
+                    <div class="grid md:grid-cols-4 gap-8 mb-8">
+                        <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                            <h3 class="text-2xl font-bold text-blue-600" id="totalStudents">1,247</h3>
+                            <p class="text-gray-600">Total Students</p>
+                        </div>
+                        <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                            <h3 class="text-2xl font-bold text-green-600" id="totalCourses">15</h3>
+                            <p class="text-gray-600">Active Courses</p>
+                        </div>
+                        <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                            <h3 class="text-2xl font-bold text-purple-600" id="totalVideos">342</h3>
+                            <p class="text-gray-600">Video Lessons</p>
+                        </div>
+                        <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                            <h3 class="text-2xl font-bold text-orange-600" id="totalBackgrounds">5</h3>
+                            <p class="text-gray-600">Background Images</p>
+                        </div>
+                    </div>
+
+                    <!-- Background Image Management -->
+                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
+                        <h3 class="text-2xl font-semibold mb-6">Background Image Management</h3>
+                        <div class="mb-6">
+                            <button onclick="showBackgroundUpload()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 mr-4">Upload Background</button>
+                            <button onclick="toggleSlideshow()" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700" id="slideshowBtn">Start Slideshow</button>
+                        </div>
+                        
+                        <div id="backgroundUploadForm" class="hidden mb-6 p-4 border rounded-lg">
+                            <form onsubmit="uploadBackground(event)">
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Background Image</label>
+                                    <input type="file" id="backgroundFile" accept="image/*" class="w-full border rounded-lg px-4 py-2" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Image Name</label>
+                                    <input type="text" id="backgroundName" class="w-full border rounded-lg px-4 py-2" placeholder="Enter image name" required>
+                                </div>
+                                <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">Upload Background</button>
+                            </form>
+                        </div>
+
+                        <div id="backgroundList" class="grid md:grid-cols-3 gap-4">
+                            <div class="border rounded-lg p-4">
+                                <div class="w-full h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded mb-2"></div>
+                                <h4 class="font-semibold">Default Gradient</h4>
+                                <div class="mt-2">
+                                    <button class="text-red-600 hover:underline">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Management -->
+                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
+                        <h3 class="text-2xl font-semibold mb-6">Student Management</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full table-auto">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="px-4 py-2 text-left">Name</th>
+                                        <th class="px-4 py-2 text-left">Email</th>
+                                        <th class="px-4 py-2 text-left">Course</th>
+                                        <th class="px-4 py-2 text-left">Progress</th>
+                                        <th class="px-4 py-2 text-left">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentTable">
+                                    <tr>
+                                        <td class="px-4 py-2">John Doe</td>
+                                        <td class="px-4 py-2">john@example.com</td>
+                                        <td class="px-4 py-2">IELTS</td>
+                                        <td class="px-4 py-2">75%</td>
+                                        <td class="px-4 py-2">
+                                            <button class="text-blue-600 hover:underline mr-2">Edit</button>
+                                            <button class="text-red-600 hover:underline">Remove</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">Jane Smith</td>
+                                        <td class="px-4 py-2">jane@example.com</td>
+                                        <td class="px-4 py-2">TOEFL</td>
+                                        <td class="px-4 py-2">60%</td>
+                                        <td class="px-4 py-2">
+                                            <button class="text-blue-600 hover:underline mr-2">Edit</button>
+                                            <button class="text-red-600 hover:underline">Remove</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Video Management -->
+                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-6">Video Management</h3>
+                        <button onclick="showVideoUpload()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 mb-4">Upload New Video</button>
+                        
+                        <div id="videoUploadForm" class="hidden mb-6 p-4 border rounded-lg">
+                            <form onsubmit="uploadVideo(event)">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Course</label>
+                                        <select id="courseSelect" class="w-full border rounded-lg px-4 py-2">
+                                            <option value="IELTS">IELTS</option>
+                                            <option value="TOEFL">TOEFL</option>
+                                            <option value="GRE">GRE</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Video Title</label>
+                                        <input type="text" id="videoTitle" class="w-full border rounded-lg px-4 py-2" required>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Video Description</label>
+                                    <textarea id="videoDescription" rows="3" class="w-full border rounded-lg px-4 py-2"></textarea>
+                                </div>
+                                <div class="mt-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Video File</label>
+                                    <input type="file" id="videoFile" accept="video/*" class="w-full border rounded-lg px-4 py-2" required>
+                                </div>
+                                <button type="submit" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Upload Video</button>
+                            </form>
+                        </div>
+
+                        <div id="videoList" class="space-y-4">
+                            <div class="border p-4 rounded-lg">
+                                <h4 class="font-semibold">IELTS Speaking Module 1</h4>
+                                <p class="text-gray-600">Duration: 25 minutes • Views: 1,234</p>
+                                <div class="mt-2">
+                                    <button class="text-blue-600 hover:underline mr-4">Edit</button>
+                                    <button class="text-red-600 hover:underline">Delete</button>
+                                </div>
+                            </div>
+                            <div class="border p-4 rounded-lg">
+                                <h4 class="font-semibold">TOEFL Reading Strategies</h4>
+                                <p class="text-gray-600">Duration: 35 minutes • Views: 987</p>
+                                <div class="mt-2">
+                                    <button class="text-blue-600 hover:underline mr-4">Edit</button>
+                                    <button class="text-red-600 hover:underline">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login/Signup Section -->
+        <div id="login" class="section hidden">
+            <div class="max-w-md mx-auto mt-16 bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+                <div class="text-center mb-6">
+                    <div class="logo-gradient rounded-lg p-3 inline-block mb-4">
+                        <svg width="40" height="40" viewBox="0 0 40 40" class="text-white">
+                            <path fill="currentColor" d="M20 2L35 10v20L20 38L5 30V10L20 2z"/>
+                            <circle cx="20" cy="20" r="8" fill="white" opacity="0.9"/>
+                            <path fill="currentColor" d="M16 18h8v4h-8z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">Welcome to Vistara Learn</h2>
+                </div>
+                
+                <div id="loginForm">
+                    <form onsubmit="handleLogin(event)">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="loginEmail" class="w-full border rounded-lg px-4 py-2" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" id="loginPassword" class="w-full border rounded-lg px-4 py-2" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 mb-4">Sign In</button>
+                    </form>
+                    <p class="text-center text-gray-600">Don't have an account? <button onclick="showSignup()" class="text-blue-600 hover:underline">Sign up</button></p>
+                </div>
+
+                <div id="signupForm" class="hidden">
+                    <form onsubmit="handleSignup(event)">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="signupName" class="w-full border rounded-lg px-4 py-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="signupEmail" class="w-full border rounded-lg px-4 py-2" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" id="signupPassword" class="w-full border rounded-lg px-4 py-2" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 mb-4">Create Account</button>
+                    </form>
+                    <p class="text-center text-gray-600">Already have an account? <button onclick="showLogin()" class="text-blue-600 hover:underline">Sign in</button></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div id="jobApplicationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white p-8 rounded-lg max-w-md w-full mx-4">
+                <h3 class="text-2xl font-semibold mb-6">Apply for Job</h3>
+                <form onsubmit="submitJobApplication(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="applicantName" class="w-full border rounded-lg px-4 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="applicantEmail" class="w-full border rounded-lg px-4 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Resume</label>
+                        <input type="file" id="applicantResume" accept=".pdf,.doc,.docx" class="w-full border rounded-lg px-4 py-2" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
+                        <textarea id="coverLetter" rows="4" class="w-full border rounded-lg px-4 py-2"></textarea>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button type="submit" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Submit Application</button>
+                        <button type="button" onclick="closeModal('jobApplicationModal')" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let isAdminLoggedIn = false;
+        let currentJobTitle = '';
+        let backgroundImages = [];
+        let currentSlide = 0;
+        let slideshowInterval = null;
+        let courseVideos = {
+            'IELTS': [
+                { title: 'Introduction to IELTS', description: 'Overview of the IELTS exam structure and format', duration: '15:30' },
+                { title: 'Speaking Module Basics', description: 'Understanding the speaking test format', duration: '22:45' },
+                { title: 'Writing Task 1 Strategies', description: 'How to approach academic writing task 1', duration: '28:15' }
+            ],
+            'TOEFL': [
+                { title: 'TOEFL Overview', description: 'Complete guide to TOEFL iBT format', duration: '18:20' },
+                { title: 'Reading Comprehension', description: 'Strategies for TOEFL reading section', duration: '25:10' },
+                { title: 'Listening Skills', description: 'Mastering TOEFL listening tasks', duration: '30:45' }
+            ],
+            'GRE': [
+                { title: 'GRE Introduction', description: 'Understanding GRE structure and scoring', duration: '20:15' },
+                { title: 'Verbal Reasoning', description: 'Techniques for verbal reasoning questions', duration: '35:30' },
+                { title: 'Quantitative Reasoning', description: 'Math concepts and problem-solving', duration: '40:20' }
+            ]
+        };
+
+        // Authentication Functions
+        function checkAuthAndShow(sectionId) {
+            if (sectionId === 'admin') {
+                showAdminLogin();
+                return;
+            }
+            showSection(sectionId);
+            // Show welcome message for first-time users
+            if (sectionId !== 'home' && sectionId !== 'login') {
+                setTimeout(() => {
+                    showNotification('Welcome to Vistara Learn! Explore our professional learning platform.', 'success');
+                }, 500);
+            }
+        }
+
+        function showAdminLogin() {
+            const password = prompt('Enter Admin Password:');
+            if (password === 'sar123@123') {
+                isAdminLoggedIn = true;
+                showSection('admin');
+                showNotification('Admin access granted successfully!', 'success');
+            } else if (password !== null) {
+                showNotification('Invalid admin password. Access denied.', 'error');
+            }
+        }
+
+        function showAuthOverlay() {
+            // No longer needed - keeping for compatibility
+        }
+
+        function hideAuthOverlay() {
+            // No longer needed - keeping for compatibility
+        }
+
+        // Background Slider Functions
+        function initBackgroundSlider() {
+            backgroundImages = [
+                { name: 'Default Gradient', url: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
+            ];
+            updateBackgroundSlider();
+        }
+
+        function updateBackgroundSlider() {
+            const slider = document.getElementById('bgSlider');
+            slider.innerHTML = '';
+            
+            backgroundImages.forEach((bg, index) => {
+                const slide = document.createElement('div');
+                slide.className = `bg-slide ${index === 0 ? 'active' : ''}`;
+                if (bg.url.startsWith('linear-gradient')) {
+                    slide.style.backgroundImage = bg.url;
+                } else {
+                    slide.style.backgroundImage = `url(${bg.url})`;
+                }
+                slider.appendChild(slide);
+            });
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll('.bg-slide');
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function toggleSlideshow() {
+            const btn = document.getElementById('slideshowBtn');
+            if (slideshowInterval) {
+                clearInterval(slideshowInterval);
+                slideshowInterval = null;
+                btn.textContent = 'Start Slideshow';
+                btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                btn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                slideshowInterval = setInterval(nextSlide, 5000);
+                btn.textContent = 'Stop Slideshow';
+                btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                btn.classList.add('bg-red-600', 'hover:bg-red-700');
+            }
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600', 'font-bold');
+                btn.classList.add('text-gray-700');
+            });
+        }
+
+        // Video Portal Functions
+        function openVideoPortal(courseName) {
+            showSection('videoPortal');
+            document.getElementById('courseTitle').textContent = `${courseName} Course Videos`;
+            loadCourseVideos(courseName);
+        }
+
+        function loadCourseVideos(courseName) {
+            const playlist = document.getElementById('videoPlaylist');
+            const videos = courseVideos[courseName] || [];
+            
+            playlist.innerHTML = videos.map((video, index) => `
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg cursor-pointer hover:bg-opacity-30 transition" onclick="playVideo('${video.title}', '${video.description}', '${video.duration}')">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white bg-opacity-30 rounded-full p-2">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-medium">${video.title}</h4>
+                            <p class="text-gray-300 text-sm">${video.duration}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function playVideo(title, description, duration) {
+            document.getElementById('currentVideoTitle').textContent = title;
+            document.getElementById('currentVideoDesc').textContent = description;
+            
+            const player = document.getElementById('videoPlayer');
+            player.innerHTML = `
+                <div class="text-center text-white">
+                    <svg class="w-20 h-20 mx-auto mb-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+                    </svg>
+                    <p class="text-lg">Now Playing: ${title}</p>
+                    <p class="text-sm text-gray-300">Duration: ${duration}</p>
+                </div>
+            `;
+        }
+
+        // Job Functions
+        function applyForJob(jobTitle) {
+            currentJobTitle = jobTitle;
+            document.getElementById('jobApplicationModal').classList.remove('hidden');
+            document.getElementById('jobApplicationModal').classList.add('flex');
+        }
+
+        function submitJobApplication(event) {
+            event.preventDefault();
+            const name = document.getElementById('applicantName').value;
+            const email = document.getElementById('applicantEmail').value;
+            
+            alert(`Thank you ${name}! Your application for ${currentJobTitle} has been submitted successfully. We'll contact you at ${email} soon.`);
+            closeModal('jobApplicationModal');
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        function showJobForm() {
+            alert('Job posting feature coming soon! Contact us at 8122060821 to post your job.');
+        }
+
+        // Visa Functions
+        function showVisaForm(type) {
+            alert(`${type.charAt(0).toUpperCase() + type.slice(1)} visa application form will open soon. Contact us at 8122060821 for immediate assistance.`);
+        }
+
+        // Mock Test Functions
+        function startMockTest(testType) {
+            alert(`Starting ${testType} mock test... Good luck!`);
+            
+            // Simulate test completion after 3 seconds
+            setTimeout(() => {
+                showTestResults(testType);
+            }, 3000);
+        }
+
+        function showTestResults(testType) {
+            const results = {
+                'IELTS': { overall: 7.5, reading: 8.0, writing: 7.0, listening: 7.5, speaking: 7.5 },
+                'TOEFL': { total: 95, reading: 24, writing: 23, listening: 24, speaking: 24 },
+                'GRE': { total: 320, verbal: 160, quantitative: 160, writing: 4.5 }
+            };
+            
+            const result = results[testType];
+            let resultHTML = `<h4 class="text-xl font-semibold mb-4">${testType} Mock Test Results</h4>`;
+            
+            for (const [key, value] of Object.entries(result)) {
+                resultHTML += `<div class="flex justify-between py-2 border-b">
+                    <span class="capitalize">${key}:</span>
+                    <span class="font-semibold">${value}</span>
+                </div>`;
+            }
+            
+            document.getElementById('resultsContent').innerHTML = resultHTML;
+            document.getElementById('testResults').classList.remove('hidden');
+        }
+
+        // Admin Functions
+        function adminLogin(event) {
+            // No login required - direct access to admin panel
+            alert('Welcome to Admin Panel! You have full administrative access.');
+        }
+
+        function showBackgroundUpload() {
+            const form = document.getElementById('backgroundUploadForm');
+            form.classList.toggle('hidden');
+        }
+
+        function uploadBackground(event) {
+            event.preventDefault();
+            const file = document.getElementById('backgroundFile').files[0];
+            const name = document.getElementById('backgroundName').value;
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    backgroundImages.push({
+                        name: name,
+                        url: e.target.result
+                    });
+                    updateBackgroundSlider();
+                    updateBackgroundList();
+                    alert(`Background "${name}" uploaded successfully!`);
+                    event.target.reset();
+                    document.getElementById('backgroundUploadForm').classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateBackgroundList() {
+            const list = document.getElementById('backgroundList');
+            list.innerHTML = backgroundImages.map((bg, index) => `
+                <div class="border rounded-lg p-4">
+                    <div class="w-full h-32 rounded mb-2" style="background-image: ${bg.url.startsWith('linear-gradient') ? bg.url : `url(${bg.url})`}; background-size: cover; background-position: center;"></div>
+                    <h4 class="font-semibold">${bg.name}</h4>
+                    <div class="mt-2">
+                        <button onclick="removeBackground(${index})" class="text-red-600 hover:underline">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeBackground(index) {
+            backgroundImages.splice(index, 1);
+            updateBackgroundSlider();
+            updateBackgroundList();
+            alert('Background removed successfully!');
+        }
+
+        function showVideoUpload() {
+            const form = document.getElementById('videoUploadForm');
+            form.classList.toggle('hidden');
+        }
+
+        function uploadVideo(event) {
+            event.preventDefault();
+            const course = document.getElementById('courseSelect').value;
+            const title = document.getElementById('videoTitle').value;
+            const description = document.getElementById('videoDescription').value;
+            
+            // Add video to course
+            if (!courseVideos[course]) {
+                courseVideos[course] = [];
+            }
+            
+            courseVideos[course].push({
+                title: title,
+                description: description,
+                duration: '25:00' // Default duration
+            });
+            
+            alert(`Video "${title}" for ${course} course uploaded successfully!`);
+            event.target.reset();
+            document.getElementById('videoUploadForm').classList.add('hidden');
+        }
+
+        // Login Functions
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation (in real app, this would be server-side)
+            if (email && password) {
+                currentUser = { email: email, name: email.split('@')[0] };
+                document.getElementById('authBtn').textContent = 'Logout';
+                document.getElementById('authBtn').onclick = logout;
+                hideAuthOverlay();
+                alert(`Welcome back, ${currentUser.name}!`);
+                showSection('home');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            if (name && email && password) {
+                currentUser = { email: email, name: name };
+                document.getElementById('authBtn').textContent = 'Logout';
+                document.getElementById('authBtn').onclick = logout;
+                hideAuthOverlay();
+                alert(`Welcome to Vistara Learn, ${name}!`);
+                showSection('home');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            isAdminLoggedIn = false;
+            document.getElementById('authBtn').textContent = 'Login';
+            document.getElementById('authBtn').onclick = () => showSection('login');
+            alert('You have been logged out successfully.');
+            showSection('home');
+        }
+
+        function showSignup() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        }
+
+        // Modal Functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+
+        // Professional Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 4000);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Professional Loading States
+        function showLoading(buttonId) {
+            const button = document.getElementById(buttonId);
+            const originalText = button.innerHTML;
+            button.innerHTML = '<div class="loading-spinner inline-block mr-2"></div>Processing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
+            initBackgroundSlider();
+            updateBackgroundList();
+            
+            // Add smooth scrolling
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            // Initialize tooltips and animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }, 100);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9826cac372b2ffa7',t:'MTc1ODQyODY1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
