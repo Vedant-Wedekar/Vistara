@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="bg-gray-50 font-sans">
     <!-- Background Image Slider -->
@@ -91,7 +92,7 @@
         <!-- Home Section -->
         <div id="home" class="section">
             <!-- Professional Hero Section -->
-            <div class="hero-gradient text-white py-24 relative overflow-hidden">
+            <div id="hero" class="hero-gradient text-white py-24 relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-purple-900/20"></div>
                 <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
                     <div class="flex justify-center mb-8">
@@ -186,7 +187,7 @@
                 </div>
             </div>
 
-            <!-- Professional Team Section -->
+            <!-- Professional Team Section   team ----------------------------------- -->
             <div class="glass-effect py-20">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="text-center mb-16">
@@ -194,84 +195,124 @@
                         <p class="text-xl text-gray-600 max-w-3xl mx-auto">Meet the visionary professionals behind Vistara Learn's success</p>
                     </div>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
-                        <div class="text-center group">
-                            <div class="relative mb-6">
-                                <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
-                                    <span class="text-white font-bold text-xl">SV</span>
-                                </div>
-                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-1">Sarvesh Vankar</h4>
-                            <p class="text-sm text-blue-600 font-medium mb-2">Co-Founder & CEO</p>
-                            <p class="text-xs text-gray-500">Strategic Leadership</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="relative mb-6">
-                                <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
-                                    <span class="text-white font-bold text-xl">AC</span>
-                                </div>
-                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-1">Ayush Choudhari</h4>
-                            <p class="text-sm text-green-600 font-medium mb-2">Co-Founder & CTO</p>
-                            <p class="text-xs text-gray-500">Technology Innovation</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="relative mb-6">
-                                <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
-                                    <span class="text-white font-bold text-xl">KS</span>
-                                </div>
-                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-1">Khushi Singh</h4>
-                            <p class="text-sm text-pink-600 font-medium mb-2">Head of Operations</p>
-                            <p class="text-xs text-gray-500">Process Excellence</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="relative mb-6">
-                                <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
-                                    <span class="text-white font-bold text-xl">SD</span>
-                                </div>
-                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-1">Shivani Dakhale</h4>
-                            <p class="text-sm text-purple-600 font-medium mb-2">Academic Director</p>
-                            <p class="text-xs text-gray-500">Curriculum Design</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="relative mb-6">
-                                <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
-                                    <span class="text-white font-bold text-xl">SS</span>
-                                </div>
-                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-1">Shravani Shahakar</h4>
-                            <p class="text-sm text-indigo-600 font-medium mb-2">Student Success Manager</p>
-                            <p class="text-xs text-gray-500">Student Experience</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="relative mb-6">
-                                <div class="w-24 h-24 bg-gradient-to-br from-teal-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
-                                    <span class="text-white font-bold text-xl">SW</span>
-                                </div>
-                                <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-1">Sneha Walmik</h4>
-                            <p class="text-sm text-teal-600 font-medium mb-2">Marketing Director</p>
-                            <p class="text-xs text-gray-500">Brand Strategy</p>
-                        </div>
+
+<!-- Sarvesh Vankar -->
+<div class="text-center group">
+             <div class="relative mb-6">
+              <div class="w-24 h-24 rounded-2xl overflow-hidden mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+            <img 
+                src="pro-sar-1.jpg" 
+                alt="Sarvesh Vankar" 
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <i class="fas fa-check text-white text-xs"></i>
+        </div>
+    </div>
+    <h4 class="font-bold text-gray-900 mb-1">Sarvesh Vankar</h4>
+    <p class="text-sm text-blue-600 font-medium mb-2">Co-Founder & CEO</p>
+    <p class="text-xs text-gray-500">Strategic Leadership</p>
+</div>
+
+<!-- Ayush Choudhari -->
+<div class="text-center group">
+    <div class="relative mb-6">
+        <div class="w-24 h-24 rounded-2xl overflow-hidden mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+            <img 
+                src="pro-ayu-2.jpg" 
+                alt="Ayush Choudhari" 
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <i class="fas fa-check text-white text-xs"></i>
+        </div>
+    </div>
+    <h4 class="font-bold text-gray-900 mb-1">Ayush Choudhari</h4>
+    <p class="text-sm text-green-600 font-medium mb-2">Co-Founder & CTO</p>
+    <p class="text-xs text-gray-500">Technology Innovation</p>
+</div>
+
+<!-- Khushi Singh -->
+<div class="text-center group">
+    <div class="relative mb-6">
+        <div class="w-24 h-24 rounded-2xl overflow-hidden mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+            <img 
+                src="pro-khu.jpg" 
+                alt="Khushi Singh" 
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <i class="fas fa-check text-white text-xs"></i>
+        </div>
+    </div>
+    <h4 class="font-bold text-gray-900 mb-1">Khushi Singh</h4>
+    <p class="text-sm text-pink-600 font-medium mb-2">Head of Operations</p>
+    <p class="text-xs text-gray-500">Process Excellence</p>
+</div>
+
+<!-- Shivani Dakhale -->
+<div class="text-center group">
+    <div class="relative mb-6">
+        <div class="w-24 h-24 rounded-2xl overflow-hidden mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+            <img 
+                src="" 
+                alt="Shivani Dakhale" 
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <i class="fas fa-check text-white text-xs"></i>
+        </div>
+    </div>
+    <h4 class="font-bold text-gray-900 mb-1">Shivani Dakhale</h4>
+    <p class="text-sm text-purple-600 font-medium mb-2">Academic Director</p>
+    <p class="text-xs text-gray-500">Curriculum Design</p>
+</div>
+
+<!-- Shravani Shahakar -->
+<div class="text-center group">
+    <div class="relative mb-6">
+        <div class="w-24 h-24 rounded-2xl overflow-hidden mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+            <img 
+                src="" 
+                alt="Shravani Shahakar" 
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <i class="fas fa-check text-white text-xs"></i>
+        </div>
+    </div>
+    <h4 class="font-bold text-gray-900 mb-1">Shravani Shahakar</h4>
+    <p class="text-sm text-indigo-600 font-medium mb-2">Student Success Manager</p>
+    <p class="text-xs text-gray-500">Student Experience</p>
+</div>
+
+
+                 <div class="text-center group">
+    <div class="relative mb-6">
+        <div class="w-24 h-24 rounded-2xl overflow-hidden mx-auto professional-shadow group-hover:scale-105 transition-transform duration-300">
+            <img 
+                src="" 
+                alt="Sneha Walmik" 
+                class="w-full h-full object-cover"
+            />
+        </div>
+
+        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <i class="fas fa-check text-white text-xs"></i>
+        </div>
+    </div>
+
+    <h4 class="font-bold text-gray-900 mb-1">Sneha Walmik</h4>
+    <p class="text-sm text-teal-600 font-medium mb-2">Marketing Director</p>
+    <p class="text-xs text-gray-500">Brand Strategy</p>
+</div>
+
+
                     </div>
                     
                     <!-- Contact Information -->
@@ -293,17 +334,23 @@
                     </div>
                 </div>
             </div>
+
+
+
+
         </div>
 
+
+
         <!-- Jobs Section -->
-        <div id="jobs" class="section hidden">
+        <!-- <div id="jobs" class="section hidden">
             <div class="max-w-7xl mx-auto px-4 py-8">
                 <div class="flex justify-between items-center mb-8">
                     <h2 class="text-3xl font-bold text-gray-800">Job Opportunities</h2>
                     <button onclick="showJobForm()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Post a Job</button>
                 </div>
                 
-                <!-- Job Filters -->
+                Job Filters
                 <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-md mb-8">
                     <div class="grid md:grid-cols-4 gap-4">
                         <input type="text" placeholder="Job title or keywords" class="border rounded-lg px-4 py-2">
@@ -325,7 +372,7 @@
                     </div>
                 </div>
 
-                <!-- Job Listings -->
+                Job Listings
                 <div id="jobListings" class="space-y-6">
                     <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-md card-hover">
                         <div class="flex justify-between items-start mb-4">
@@ -362,61 +409,270 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Visa Services Section -->
-        <div id="visa" class="section hidden">
-            <div class="max-w-7xl mx-auto px-4 py-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-8">Professional Visa Services</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-4 text-blue-600">Student Visa Services</h3>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> University Application Assistance</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Document Preparation</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Visa Interview Coaching</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Scholarship Guidance</li>
-                        </ul>
-                        <button onclick="showVisaForm('student')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full">Apply for Student Visa</button>
-                    </div>
-                    
-                    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-4 text-green-600">Work Visa Services</h3>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Job Placement Assistance</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Work Permit Processing</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Employer Sponsorship</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Legal Documentation</li>
-                        </ul>
-                        <button onclick="showVisaForm('work')" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 w-full">Apply for Work Visa</button>
-                    </div>
-                </div>
-
-                <!-- Countries We Serve -->
-                <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-6 text-center">Countries We Serve</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div class="p-4 border rounded-lg">
-                            <div class="text-2xl mb-2">🇺🇸</div>
-                            <p class="font-semibold">United States</p>
-                        </div>
-                        <div class="p-4 border rounded-lg">
-                            <div class="text-2xl mb-2">🇨🇦</div>
-                            <p class="font-semibold">Canada</p>
-                        </div>
-                        <div class="p-4 border rounded-lg">
-                            <div class="text-2xl mb-2">🇬🇧</div>
-                            <p class="font-semibold">United Kingdom</p>
-                        </div>
-                        <div class="p-4 border rounded-lg">
-                            <div class="text-2xl mb-2">🇦🇺</div>
-                            <p class="font-semibold">Australia</p>
-                        </div>
-                    </div>
-                </div>
+        </div> -->
+<div class="bg-white shadow-md p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800">Job Portal</h1>
+            <div class="flex items-center gap-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <span class="text-sm text-gray-600">Admin Mode</span>
+                    <input type="checkbox" id="adminToggle" class="w-5 h-5 cursor-pointer">
+                </label>
             </div>
         </div>
+    </div>
+
+    <div id="jobs" class="section">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Job Opportunities</h2>
+                <button id="postJobBtn" onclick="showJobForm()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 hidden">
+                    Post a Job
+                </button>
+            </div>
+            
+            <!-- Job Filters -->
+            <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-md mb-8">
+                <div class="grid md:grid-cols-4 gap-4">
+                    <input type="text" id="searchKeyword" placeholder="Job title or keywords" class="border rounded-lg px-4 py-2">
+                    <select id="searchLocation" class="border rounded-lg px-4 py-2">
+                        <option value="">All Locations</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Bangalore">Bangalore</option>
+                    </select>
+                    <select id="searchIndustry" class="border rounded-lg px-4 py-2">
+                        <option value="">All Industries</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Education">Education</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                    <button onclick="searchJobs()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                        Search Jobs
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Listings -->
+            <div id="jobListings" class="space-y-6"></div>
+
+            <!-- No Jobs Message -->
+            <div id="noJobsMessage" class="text-center py-12 hidden">
+                <p class="text-gray-600 text-lg">No jobs found matching your criteria.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Job Modal -->
+    <div id="jobFormModal" class="modal">
+        <div class="modal-content p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Post a New Job</h3>
+                <button onclick="closeJobForm()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form id="jobPostForm" onsubmit="submitJob(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Job Title *</label>
+                        <input type="text" name="title" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Company Name *</label>
+                        <input type="text" name="company" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Location *</label>
+                            <select name="location" required class="w-full border rounded-lg px-4 py-2">
+                                <option value="">Select Location</option>
+                                <option value="Remote">Remote</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Bangalore">Bangalore</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Job Type *</label>
+                            <select name="type" required class="w-full border rounded-lg px-4 py-2">
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Internship">Internship</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Industry *</label>
+                        <select name="industry" required class="w-full border rounded-lg px-4 py-2">
+                            <option value="">Select Industry</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Education">Education</option>
+                            <option value="Marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+                        <textarea name="description" required rows="4" class="w-full border rounded-lg px-4 py-2"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Required Skills (comma separated) *</label>
+                        <input type="text" name="skills" required placeholder="e.g., JavaScript, React, Node.js" class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-medium">
+                        Post Job
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Apply for <span id="applyJobTitle"></span></h3>
+                <button onclick="closeApplicationForm()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form id="applicationForm" onsubmit="submitApplication(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                        <input type="text" name="name" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                        <input type="email" name="email" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+                        <input type="tel" name="phone" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Current Position</label>
+                        <input type="text" name="currentPosition" class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Years of Experience *</label>
+                        <input type="number" name="experience" required min="0" class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">LinkedIn Profile URL</label>
+                        <input type="url" name="linkedin" placeholder="https://linkedin.com/in/yourprofile" class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Cover Letter *</label>
+                        <textarea name="coverLetter" required rows="5" placeholder="Tell us why you're a great fit for this position..." class="w-full border rounded-lg px-4 py-2"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Resume/CV (Note: File upload simulation)</label>
+                        <input type="file" name="resume" accept=".pdf,.doc,.docx" class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-medium">
+                        Submit Application
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+ <!-- Visa Services Section -->
+<div id="visa" class="section hidden">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Professional Visa Services</h2>
+    
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-semibold mb-4 text-blue-600">Student Visa Services</h3>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> University Application Assistance</li>
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Document Preparation</li>
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Visa Interview Coaching</li>
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Scholarship Guidance</li>
+        </ul>
+        <button onclick="showVisaForm('student')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full">Apply for Student Visa</button>
+      </div>
+      
+      <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-semibold mb-4 text-green-600">Work Visa Services</h3>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Job Placement Assistance</li>
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Work Permit Processing</li>
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Employer Sponsorship</li>
+          <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Legal Documentation</li>
+        </ul>
+        <button onclick="showVisaForm('work')" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 w-full">Apply for Work Visa</button>
+      </div>
+    </div>
+
+    <!-- Countries We Serve -->
+    <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg">
+      <h3 class="text-2xl font-semibold mb-6 text-center">Countries We Serve</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="p-4 border rounded-lg">
+          <div class="text-2xl mb-2">🇺🇸</div>
+          <p class="font-semibold">United States</p>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <div class="text-2xl mb-2">🇨🇦</div>
+          <p class="font-semibold">Canada</p>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <div class="text-2xl mb-2">🇬🇧</div>
+          <p class="font-semibold">United Kingdom</p>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <div class="text-2xl mb-2">🇦🇺</div>
+          <p class="font-semibold">Australia</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Visa Application Popup Form -->
+<div id="visaFormPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative animate-fadeIn">
+    <button onclick="closeVisaForm()" class="absolute top-2 right-3 text-gray-500 text-2xl hover:text-gray-700">&times;</button>
+    <h3 id="visaFormTitle" class="text-2xl font-semibold mb-4 text-center text-blue-600">Visa Application Form</h3>
+
+    <form id="visaApplicationForm" class="space-y-4">
+      <input type="hidden" id="visaType" name="visaType">
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Full Name</label>
+        <input type="text" id="name" name="name" required class="w-full border rounded-md p-2 focus:ring focus:ring-blue-200">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Email</label>
+        <input type="email" id="email" name="email" required class="w-full border rounded-md p-2 focus:ring focus:ring-blue-200">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Phone</label>
+        <input type="text" id="phone" name="phone" required class="w-full border rounded-md p-2 focus:ring focus:ring-blue-200">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Country of Interest</label>
+        <input type="text" id="country" name="country" required class="w-full border rounded-md p-2 focus:ring focus:ring-blue-200">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Message</label>
+        <textarea id="message" name="message" rows="3" class="w-full border rounded-md p-2 focus:ring focus:ring-blue-200"></textarea>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Submit Application</button>
+    </form>
+  </div>
+</div>
 
         <!-- Exam Preparation Section -->
         <div id="exams" class="section hidden">
@@ -517,50 +773,49 @@
             </div>
         </div>
 
-        <!-- Mock Tests Section -->
-        <div id="mock" class="section hidden">
-            <div class="max-w-7xl mx-auto px-4 py-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-8">Mock Tests</h2>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
-                        <h3 class="text-xl font-semibold mb-4">IELTS Mock Test</h3>
-                        <p class="text-gray-600 mb-4">Full-length IELTS simulation with instant scoring</p>
-                        <div class="mb-4">
-                            <p class="text-sm text-gray-500">Duration: 2 hours 45 minutes</p>
-                            <p class="text-sm text-gray-500">Questions: 40 per section</p>
-                        </div>
-                        <button onclick="startMockTest('IELTS')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 w-full">Start Test</button>
-                    </div>
+    <!-- Mock Tests Section -->
+<div id="mock" class="section hidden">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Mock Tests</h2>
 
-                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
-                        <h3 class="text-xl font-semibold mb-4">TOEFL Mock Test</h3>
-                        <p class="text-gray-600 mb-4">Complete TOEFL practice test with detailed feedback</p>
-                        <div class="mb-4">
-                            <p class="text-sm text-gray-500">Duration: 3 hours</p>
-                            <p class="text-sm text-gray-500">Sections: 4 (Reading, Listening, Speaking, Writing)</p>
-                        </div>
-                        <button onclick="startMockTest('TOEFL')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full">Start Test</button>
-                    </div>
+    <!-- Mock Test Cards -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="testCards">
+      <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+        <h3 class="text-xl font-semibold mb-4">IELTS Mock Test</h3>
+        <p class="text-gray-600 mb-4">Full-length IELTS simulation with instant scoring</p>
+        <button onclick="startMockTest('IELTS')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 w-full">Start Test</button>
+      </div>
 
-                    <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
-                        <h3 class="text-xl font-semibold mb-4">GRE Mock Test</h3>
-                        <p class="text-gray-600 mb-4">Adaptive GRE practice test with performance analytics</p>
-                        <div class="mb-4">
-                            <p class="text-sm text-gray-500">Duration: 3 hours 45 minutes</p>
-                            <p class="text-sm text-gray-500">Sections: Verbal, Quantitative, Analytical Writing</p>
-                        </div>
-                        <button onclick="startMockTest('GRE')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 w-full">Start Test</button>
-                    </div>
-                </div>
+      <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+        <h3 class="text-xl font-semibold mb-4">TOEFL Mock Test</h3>
+        <p class="text-gray-600 mb-4">Complete TOEFL practice test with detailed feedback</p>
+        <button onclick="startMockTest('TOEFL')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full">Start Test</button>
+      </div>
 
-                <!-- Test Results -->
-                <div id="testResults" class="mt-12 bg-white bg-opacity-90 p-8 rounded-lg shadow-lg hidden">
-                    <h3 class="text-2xl font-semibold mb-6">Your Test Results</h3>
-                    <div id="resultsContent"></div>
-                </div>
-            </div>
-        </div>
+      <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg card-hover">
+        <h3 class="text-xl font-semibold mb-4">GRE Mock Test</h3>
+        <p class="text-gray-600 mb-4">Adaptive GRE practice test with performance analytics</p>
+        <button onclick="startMockTest('GRE')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 w-full">Start Test</button>
+      </div>
+    </div>
+
+    <!-- Test Area -->
+    <div id="testArea" class="hidden bg-white bg-opacity-90 p-8 rounded-lg shadow-lg mt-10">
+      <div class="flex justify-between items-center mb-6">
+        <h3 id="testTitle" class="text-2xl font-semibold"></h3>
+        <div id="timer" class="text-lg font-semibold text-red-600"></div>
+      </div>
+      <form id="quizForm" class="space-y-6"></form>
+      <button onclick="submitTest()" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Submit Test</button>
+    </div>
+
+    <!-- Test Results -->
+    <div id="testResults" class="mt-12 bg-white bg-opacity-90 p-8 rounded-lg shadow-lg hidden">
+      <h3 class="text-2xl font-semibold mb-6">Your Test Results</h3>
+      <div id="resultsContent"></div>
+    </div>
+  </div>
+</div>
 
         <!-- Admin Section -->
         <div id="admin" class="section hidden">
@@ -797,5 +1052,7 @@
     </div>
 </body>
 <script src="script.js" ></script>
+<script src="script2.js" ></script>
+
 
 </html>
