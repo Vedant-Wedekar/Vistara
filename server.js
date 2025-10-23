@@ -127,6 +127,33 @@ app.get("/admin/users", async (req, res) => {
     res.status(500).json({ message: "Error fetching users" });
   }
 });
+// DELETE /users/:id
+// DELETE /users/:id
+app.delete("/users/:id", async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: "User not found" });
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting user" });
+  }
+});
+
+// PUT /users/:id
+app.put("/users/:id", async (req, res) => {
+  const { name, email } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { name, email },
+      { new: true }
+    );
+    if (!updatedUser) return res.status(404).json({ message: "User not found" });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: "Error updating user" });
+  }
+});
 
 // ==============================
 // Start Server
