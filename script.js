@@ -1,61 +1,12 @@
 
         let currentUser = null;
-        let isAdminLoggedIn = false;
+        // let isAdminLoggedIn = false;
         let currentJobTitle = '';
         // let backgroundImages = [];
         let currentSlide = 0;
         let slideshowInterval = null;
-        // let courseVideos = {
-        //     'IELTS': [
-        //         { title: 'Introduction to IELTS', description: 'Overview of the IELTS exam structure and format', duration: '15:30' },
-        //         { title: 'Speaking Module Basics', description: 'Understanding the speaking test format', duration: '22:45' },
-        //         { title: 'Writing Task 1 Strategies', description: 'How to approach academic writing task 1', duration: '28:15' }
-        //     ],
-        //     'TOEFL': [
-        //         { title: 'TOEFL Overview', description: 'Complete guide to TOEFL iBT format', duration: '18:20' },
-        //         { title: 'Reading Comprehension', description: 'Strategies for TOEFL reading section', duration: '25:10' },
-        //         { title: 'Listening Skills', description: 'Mastering TOEFL listening tasks', duration: '30:45' }
-        //     ],
-        //     'GRE': [
-        //         { title: 'GRE Introduction', description: 'Understanding GRE structure and scoring', duration: '20:15' },
-        //         { title: 'Verbal Reasoning', description: 'Techniques for verbal reasoning questions', duration: '35:30' },
-        //         { title: 'Quantitative Reasoning', description: 'Math concepts and problem-solving', duration: '40:20' }
-        //     ]
-        // };
-
-        // Authentication Functions
-        function checkAuthAndShow(sectionId) {
-            if (sectionId === 'admin') {
-                showAdminLogin();
-                return;
-            }
-            showSection(sectionId);
-            // Show welcome message for first-time users
-            if (sectionId !== 'home' && sectionId !== 'login') {
-                setTimeout(() => {
-                    showNotification('Welcome to Vistara Learn! Explore our professional learning platform.', 'success');
-                }, 500);
-            }
-        }
-
-        function showAdminLogin() {
-            const password = prompt('Enter Admin Password:');
-            if (password === 'sar123@123') {
-                isAdminLoggedIn = true;
-                showSection('admin');
-                showNotification('Admin access granted successfully!', 'success');
-            } else if (password !== null) {
-                showNotification('Invalid admin password. Access denied.', 'error');
-            }
-        }
-
-        function showAuthOverlay() {
-            // No longer needed - keeping for compatibility
-        }
-
-        function hideAuthOverlay() {
-            // No longer needed - keeping for compatibility
-        }
+      
+       
 
         // Background Slider Functions
         function initBackgroundSlider() {
@@ -284,19 +235,19 @@
         }
 
         // Show job form
-        function showJobForm() {
-            if (!isAdmin) {
-                alert('Please enable Admin mode to post jobs.');
-                return;
-            }
-            document.getElementById('jobFormModal').classList.add('active');
-        }
+       function showJobForm() {
+    if (!isAdmin) {
+        alert('Please enable Admin mode to post jobs.');
+        return;
+    }
+    document.getElementById('jobFormModal').classList.add('active');
+}
 
-        // Close job form
-        function closeJobForm() {
-            document.getElementById('jobFormModal').classList.remove('active');
-            document.getElementById('jobPostForm').reset();
-        }
+// Close job form
+function closeJobForm() {
+    document.getElementById('jobFormModal').classList.remove('active');
+    document.getElementById('jobPostForm').reset();
+}
 
         // Submit job
         function submitJob(e) {
@@ -512,11 +463,7 @@
     document.getElementById('testResults').classList.remove('hidden');
     document.getElementById('testCards').classList.remove('hidden');
   }
-        // Admin Functions
-        function adminLogin(event) {
-            // No login required - direct access to admin panel
-            alert('Welcome to Admin Panel! You have full administrative access.');
-        }
+    
 
         // function showBackgroundUpload() {
         //     const form = document.getElementById('backgroundUploadForm');
@@ -760,37 +707,105 @@
         }
 
         // Login Functions
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simple validation (in real app, this would be server-side)
-            if (email && password) {
-                currentUser = { email: email, name: email.split('@')[0] };
-                document.getElementById('authBtn').textContent = 'Logout';
-                document.getElementById('authBtn').onclick = logout;
-                hideAuthOverlay();
-                alert(`Welcome back, ${currentUser.name}!`);
-                showSection('home');
-            }
-        }
+       // Frontend JS (update these two functions)
+async function handleSignup(event) {
+  event.preventDefault();
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
 
-        function handleSignup(event) {
-            event.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            
-            if (name && email && password) {
-                currentUser = { email: email, name: name };
-                document.getElementById('authBtn').textContent = 'Logout';
-                document.getElementById('authBtn').onclick = logout;
-                hideAuthOverlay();
-                alert(`Welcome to Vistara Learn, ${name}!`);
-                showSection('home');
-            }
-        }
+  try {
+    const res = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.message);
+      showLogin();
+    } else {
+      alert(data.message);
+    }
+  } catch (err) {
+    alert("Error signing up. Try again!");
+  }
+}
+
+async function handleLogin(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  try {
+    const res = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      currentUser = data.user; // user object from backend
+      alert(`Welcome back, ${currentUser.name}!`);
+
+      // Change login button to logout
+      document.getElementById("authBtn").textContent = "Logout";
+      document.getElementById("authBtn").onclick = logout;
+
+      // Show main section
+      showSection("home");
+
+      // ✅ show or hide admin panel based on role
+      handleAdminAccess(currentUser.isAdmin);
+
+    } else {
+      alert(data.message);
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    alert("Error logging in. Try again!");
+  }
+}
+
+function toggleAdminUI(isAdminFlag) {
+  const adminToggleContainer = document.getElementById("adminToggleContainer"); // wrapper div for checkbox
+  const adminPanel = document.getElementById("admin"); // admin panel div
+
+  if (isAdminFlag) {
+    adminToggleContainer.style.display = "flex"; // show admin toggle
+    adminPanel.classList.remove("hidden");       // show admin panel
+  } else {
+    adminToggleContainer.style.display = "none"; // hide toggle
+    adminPanel.classList.add("hidden");          // hide panel
+  }
+
+  isAdmin = isAdminFlag; // global variable for admin actions
+}
+
+// Helper to set admin status on frontend
+function setAdminStatus(isAdminFlag) {
+  const adminToggle = document.getElementById("adminToggle");
+  const postJobBtn = document.getElementById("postJobBtn");
+
+  isAdmin = isAdminFlag; // global variable for admin status
+
+  adminToggle.checked = isAdminFlag;
+  postJobBtn.classList.toggle("hidden", !isAdminFlag);
+}
+function handleAdminAccess(isAdmin) {
+  const adminSection = document.getElementById("admin");
+
+  if (isAdmin) {
+    adminSection.classList.remove("hidden"); // Show admin panel
+  } else {
+    adminSection.classList.add("hidden"); // Keep it hidden
+  }
+}
+
+
 
         function logout() {
             currentUser = null;
@@ -810,6 +825,73 @@
             document.getElementById('signupForm').classList.add('hidden');
             document.getElementById('loginForm').classList.remove('hidden');
         }
+         // Authentication Functions
+        function checkAuthAndShow(sectionId) {
+            if (sectionId === 'admin') {
+                showAdminLogin();
+                return;
+            }
+            showSection(sectionId);
+            // Show welcome message for first-time users
+            if (sectionId !== 'home' && sectionId !== 'login') {
+                setTimeout(() => {
+                    showNotification('Welcome to Vistara Learn! Explore our professional learning platform.', 'success');
+                }, 500);
+            }
+        }
+
+        function showAdminLogin() {
+            const password = prompt('Enter Admin Password:');
+            if (password === 'sar123@123') {
+                isAdminLoggedIn = true;
+                showSection('admin');
+                showNotification('Admin access granted successfully!', 'success');
+            } else if (password !== null) {
+                showNotification('Invalid admin password. Access denied.', 'error');
+            }
+        }
+
+        // function showAuthOverlay() {
+        //     // No longer needed - keeping for compatibility
+        // }
+
+        // function hideAuthOverlay() {
+        //     // No longer needed - keeping for compatibility
+        // }
+            // Admin Functions
+        function adminLogin(event) {
+            // No login required - direct access to admin panel
+            alert('Welcome to Admin Panel! You have full administrative access.');
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Modal Functions
         function closeModal(modalId) {
